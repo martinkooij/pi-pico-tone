@@ -43,8 +43,8 @@ The following methods on the created object are provided:
 	<!-- why, markdown... -->
 	<thead>
 		<tr>
-			<th>Method</th>
-			<th width="100%">Description</th>
+			<th width= "50%">Method</th>
+			<th width="50%">Description</th>
 		</tr>
 	<thead>
 	<tbody>
@@ -64,7 +64,7 @@ The following methods on the created object are provided:
 			</td>
 		</tr>
 		<tr>
-			<td>code>void tone(uint f, float d)</code></td>
+			<td><code>void tone(uint f, float d)</code></td>
 			<td>playes a tone of frequency f, and duration d (seconds). If d = 0, will play an "endless" tone in case TONE_NON_BLOCKING, and a zero duration tone is case of TONE_BLOCKING. The frequency is bottomed out at 110Hz, and topped off at 12kHz. 
 			</td>
 		</tr>	
