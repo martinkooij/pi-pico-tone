@@ -118,8 +118,8 @@ When this is defined the following holds (for the upper case defined constants, 
 
 Or to play a simple melody:
 ````
-uint melody[]      = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
-uint note values[] = {4,       8,       8,       4,       4,       4, 4,       4      };
+uint melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
+uint values[] = {4,       8,       8,       4,       4,       4, 4,       4      };
 myPlayer1.play_melody(T_LARGHETTO,8,melody,values);
 ````
 
