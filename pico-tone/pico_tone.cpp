@@ -28,6 +28,7 @@
 		float r = 0;
 		float factor = 2.0 * this->tone_v.loudness;
 		for (int i = 0 ; i< 7 ; i++) {
+			if (this->tone_v.harmonics[i] == 0) break ;
 			r = r + ((sin((float(n)/float(this->tone_v.t)) * M_PI * 2 * (i+1))) * (this->tone_v.harmonics[i]/factor) + (this->tone_v.harmonics[i]/factor));
 		}
 		return r;
@@ -235,11 +236,11 @@
 	};
 	
 	void Tone::play_melody(uint tempo, uint length, uint * pitches, uint * values) {
-		float duration_unit = 60.0 / (float)tempo ; // tempo is beats per minute
+		float duration_unit = 4 * 60.0 / (float)tempo ; // tempo is beats per minute
 		for (int i = 0; i < length ; i++) {
-			tone(pitches[i], 0.75 * duration_unit / values[i]);
+			tone(pitches[i], 0.85 * duration_unit / values[i]);
 			if (this->dma_chan == NOT_ASSIGNED_DMA) {
-				sleep_ms(0.25 * duration_unit / values[i]);
+				sleep_ms(0.15 * duration_unit / values[i]);
 			} else {
 				sleep_ms(duration_unit / values[i]);
 			};

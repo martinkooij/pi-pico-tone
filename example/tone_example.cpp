@@ -64,7 +64,9 @@ int main() {
 	while (nogeens) {
 
 	gpio_put(17,1);
-	myPlayer.tone(frequency, duration);
+	uint melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
+	uint values[] = {4,       8,       8,       4,       4,       4, 4,       4      };
+	myPlayer.play_melody(T_ALLEGRO,8,melody,values);
 	myPlayer2.tone(2*frequency, duration);
 	sleep_ms(5000);
 	myPlayer2.stop();
