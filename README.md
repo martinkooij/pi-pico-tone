@@ -32,21 +32,67 @@ nmake
 Create an object of type Tone. The creator takes upto 9 (integer) arguments to define the pin and the "color" of the sound for the tone. You can read some on the internet to learn how harmonics influence the perception, depth and warmth of the tones. 
 ````
 Tone myPlayer(uint pin, uint base, unit h2, uint h3, uint h4, uint h5, uint h6, uint h7);
-`````
+````
 The first argument, the pin number, is mandatory. The harmonics may be left out or shortened, but the given ones should add up to 100 (%). Note: The library renormalizes to a sum up to exactly 100, but good practice would be to do that yourself already. Examples:
 - <code>Tone myPlayer(17)</code> to define a sine waveform on pin 17 for this tone. 
 - <code>Tone myPlayer(17,50,0,20,0,20,0,10)</code> defines a sine waveform with audible uneven harmonics (woody sound) on pin 17.
 
 The following methods on the created object are provided:
-- <code>init(bool blocking)</code> Simple initializer: initializes the tone generator, when "blocking" is FALSE, it wil also set up dma handlers to generate the tone without help of the processor. The system will panic in case the resources in the pi PICO are not available for the Tone generator.  
-- <code>int init(bool blocking, bool do_panic)</code> Extended initializer: This initializes the tone generator, with the first argument determining whther dma is used, the second one, if <code>false</code>, will give a negative return value when resource cannot be claimed and 0 or positive if the resource claims were succesful. 
-- <code>void tone(uint f, float d)</code> playes a tone of frequency f, and duration d (seconds). If d = 0, will play an "endless" tone in case TONE_NON_BLOCKING, and a zero duration tone is case of TONE_BLOCKING. The frequency is bottomed out at 110Hz, and topped off at 12kHz. 
-- <code>void tone(uint f)</code> is shorthand for tone(f,0). 
-- <code>void stop()</code> stop the tone currently playing (only useful in case of the non blocking version). 
-- <code>reconfigure_harmonics(uint base, uint h2, uint h3, uint h4, uint h65, uint h6, uint h7)</code> reconfigures the "color" of the sound. The 8 unisgned inter arguments are all mandatory and should add up to 100 (%). (Note that the library recalibrates to sum upto 100 if it doesn't, but it would be good practice to have them add up to 100 yourself). <code>reconfigure_harmonics(100,0,0,0,0,0,0,0)</code> would mean the tone will generate a "perfect" sine wave again. 
-- <code>play_melody(uint t, uint n, uint * pitches, uint * values)</code> plays a melody of length n and tempo t. t in beats per second. "pitches" refers to an array of notes. The length of the array should be n. "values" refers to an array of equal length that indicating the note values, as taken from the common musical notation. So 4 is a quarter note (most common), 8 an eighth note, 2 a half note, etc.  If the pitch is 0 (zero) it denotes a silence, so a pitch of zero with value 4 denotes a silence that is as long as a quarter note. 
+
+<table width="100%">
+	<!-- why, markdown... -->
+	<thead>
+		<tr>
+			<th>Method</th>
+			<th width="100%">Description</th>
+		</tr>
+	<thead>
+	<tbody>
+		<tr>
+			<td><code>init(bool blocking)</code></td>
+			<td>Simple initializer: initializes the tone generator, when "blocking" is FALSE, it wil also set up dma handlers to generate the tone without help of the processor. The system will panic in case the resources in the pi PICO are not available for the Tone generator.  
+			</td>
+		</tr>
+		<tr>
+			<td><code>int init(bool blocking, bool do_panic)</code></td>
+			<td>Extended initializer: This initializes the tone generator, with the first argument determining whther dma is used, the second one, if <code>false</code>, will give a negative return value when resource cannot be claimed and 0 or positive if the resource claims were succesful. 
+			</td>
+		</tr>
+		<tr>
+			<td><code>int init(bool blocking, bool do_panic)</code></td>
+			<td>Extended initializer: This initializes the tone generator, with the first argument determining whther dma is used, the second one, if <code>false</code>, will give a negative return value when resource cannot be claimed and 0 or positive if the resource claims were succesful. 
+			</td>
+		</tr>
+		<tr>
+			<td>code>void tone(uint f, float d)</code></td>
+			<td>playes a tone of frequency f, and duration d (seconds). If d = 0, will play an "endless" tone in case TONE_NON_BLOCKING, and a zero duration tone is case of TONE_BLOCKING. The frequency is bottomed out at 110Hz, and topped off at 12kHz. 
+			</td>
+		</tr>	
+		<tr>
+			<td><code>void tone(uint f)</code></td>
+			<td>is shorthand for tone(f,0). 
+			</td>
+		</tr>		
+		<tr>
+			<td><code>void stop()</code> </td>
+			<td> stop the tone currently playing (only useful in case of the non blocking version). 
+			</td>
+		</tr>
+		<tr>
+			<td><code>reconfigure_harmonics(uint base, uint h2, uint h3, uint h4, uint h65, uint h6, uint h7)</code></td>
+			<td> reconfigures the "color" of the sound. The 8 unisgned inter arguments are all mandatory and should add up to 100 (%). (Note that the library recalibrates to sum upto 100 if it doesn't, but it would be good practice to have them add up to 100 yourself). <code>reconfigure_harmonics(100,0,0,0,0,0,0,0)</code> would mean the tone will generate a "perfect" sine wave again. 
+			</td>
+		</tr>		
+		<tr>
+			<td><code>play_melody(uint t, uint n, uint * pitches, uint * values)</code> </td>
+			<td> plays a melody of length n and tempo t. t in beats per second. "pitches" refers to an array of notes. The length of the array should be n. "values" refers to an array of equal length that indicating the note values, as taken from the common musical notation. So 4 is a quarter note (most common), 8 an eighth note, 2 a half note, etc.  If the pitch is 0 (zero) it denotes a silence, so a pitch of zero with value 4 denotes a silence that is as long as a quarter note. 
+			</td>
+		</tr>		
+	</tbody>
+</table>
 
 ## header files & return values
+
 Convenient header files are included that define pitches and tempi (pitches.h). 
 Also the boolean values TONE_BLOCKING and TONE_NON_BLOCKING are defined for use in void init(bool blocking). 
 
