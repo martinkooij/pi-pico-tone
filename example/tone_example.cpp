@@ -26,7 +26,7 @@ int main() {
     while (!tud_cdc_connected()) {sleep_ms(100);}
 
 			
-	Tone myPlayer(15);
+	Tone myPlayer(15,50,0,20,0,20,0,10);
 	Tone myPlayer2(14) ;
 	printf("Init Machine & channel!\n");
 	int res1 = myPlayer.init(TONE_NON_BLOCKING, false) ;
@@ -38,16 +38,16 @@ int main() {
 	while (true) {
 	
 	printf("Defining color of sound!!\n");
-	printf("Grondtoon \% :") ;
-	str = (char *)readLine();
-	boventonen[0] = atoi(str);
-	for (int i = 1; i<7 ; i++) {
-		printf("Harmonische %d \% :",i+1);
-		str = (char *) readLine() ;
-		boventonen[i] = atoi(str);
-	};
+//	printf("Grondtoon \% :") ;
+//	str = (char *)readLine();
+//	boventonen[0] = atoi(str);
+//	for (int i = 1; i<7 ; i++) {
+//		printf("Harmonische %d \% :",i+1);
+//		str = (char *) readLine() ;
+//		boventonen[i] = atoi(str);
+//	};
 	
-	myPlayer.reconfigure_harmonics(boventonen[0],boventonen[1],boventonen[2],boventonen[3],boventonen[4],boventonen[5],boventonen[6]);
+//	myPlayer.reconfigure_harmonics(boventonen[0],boventonen[1],boventonen[2],boventonen[3],boventonen[4],boventonen[5],boventonen[6]);
 	
 	printf("Frequentie (Hz): ");
 	str = (char *) readLine() ;
@@ -64,11 +64,10 @@ int main() {
 	while (nogeens) {
 
 	gpio_put(17,1);
-	myPlayer2.tone(2*frequency, duration);
-	sleep_ms(500);
 	myPlayer.tone(frequency, duration);
-	printf("One cycle of %f seconds in progress\n",duration);
+	myPlayer2.tone(2*frequency, duration);
 	sleep_ms(5000);
+	myPlayer2.stop();
 	gpio_put(17,0);
 	printf("Nogmaals (n/j)?");
 	str = (char *)readLine() ;

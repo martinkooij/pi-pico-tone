@@ -10,8 +10,7 @@ loop:
 	pull
 	jmp jumpin
 jumpoverpull:
-	nop
-	nop
+	nop [1]
 jumpin:
 	out pins, 1		; here is the action! Always on the 6th tick. 
 	jmp x-- loop
