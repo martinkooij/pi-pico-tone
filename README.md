@@ -59,11 +59,6 @@ The following methods on the created object are provided:
 			</td>
 		</tr>
 		<tr>
-			<td><code>int init(bool blocking, bool do_panic)</code></td>
-			<td>Extended initializer: This initializes the tone generator, with the first argument determining whther dma is used, the second one, if <code>false</code>, will give a negative return value when resource cannot be claimed and 0 or positive if the resource claims were succesful. 
-			</td>
-		</tr>
-		<tr>
 			<td><code>void tone(uint f, float d)</code></td>
 			<td>playes a tone of frequency f, and duration d (seconds). If d = 0, will play an "endless" tone in case TONE_NON_BLOCKING, and a zero duration tone is case of TONE_BLOCKING. The frequency is bottomed out at 110Hz, and topped off at 12kHz. 
 			</td>
