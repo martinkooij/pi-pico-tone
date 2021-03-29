@@ -115,5 +115,5 @@ void tone_dma_handler_info_set_no_waves(uint this_handler_instance, uint no_wave
 };
 
 void tone_dma_handler_exit_now(uint this_handler_instance) {
-	tone_dma_handler_info[this_handler_instance].no_waves = 3 ;
+	tone_dma_handler_info[this_handler_instance].no_waves = 2 ;
 }
