@@ -1,7 +1,7 @@
 #pragma once
 #include "pico/stdlib.h"
 
-#define TICKS 1536000  // nr of ticks = 1.536MHz (48kHz * 32 ticks)
+#define TICKS 768000  // nr of ticks = 0.768MHz (48kHz * 16 ticks = 384000)
 #define MAXTICKS (TICKS / 110) // lowest frequency
 #define TONE_BLOCKING true  // for use in init() ;
 #define TONE_NON_BLOCKING false  // for use in init() ;

@@ -17,7 +17,7 @@ class Tone {
 	int this_handler_instance ;
 	void_func_pt this_handler_function ;
 	
-	ts_type timeseries ;	//assume they are aligned at 32 bits with no padding. In PI PICO they will. 
+	ts_type timeseries ;	//assume they are aligned at 32 bits words with no padding. In PI PICO they will. 
 
 	struct tone_t {
 		uint frequency ;

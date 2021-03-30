@@ -1,11 +1,11 @@
 #include "pico_tone.hpp"
-#include <cmath>
-#include <stdio.h>
-#include "pico/stdio.h"
+// #include "pico/stdio.h"
 #include "pico/time.h"
 #include "hardware/clocks.h"
 #include "hardware/dma.h"
 #include "hardware/irq.h"
+#include "hardware/timer.h"
+#include "pico/float.h"
 #include "tone_dma_handlers.h"
 #include "pdm_pushout.pio.h"
 
@@ -24,11 +24,14 @@
 //		printf("\n");
 //	};
 
+//volatile uint32_t now_stamp, then_stamp ;
+
 	float Tone::y(int n) {
 		float r = 0;
 		float factor = 2.0 * this->tone_v.loudness;
 		for (int i = 0 ; i< 7 ; i++) {
-			r = r + ((sin((float(n)/float(this->tone_v.t)) * M_PI * 2 * (i+1))) * (this->tone_v.harmonics[i]/factor) + (this->tone_v.harmonics[i]/factor));
+			if (this->tone_v.harmonics[i] == 0) break ;
+			r = r + sinf( ((n*(i+1)%this->tone_v.t)/float(this->tone_v.t)) * M_PI * 2) * (this->tone_v.harmonics[i]/factor) + (this->tone_v.harmonics[i]/factor);
 		}
 		return r;
 	};
@@ -196,9 +199,7 @@
 	void Tone::tone(uint frequency, float duration) {
 		// silent if frequency is zero, blocking when no_dma. 
 		if (frequency == 0) {
-			if (this->dma_chan == NOT_ASSIGNED_DMA) {
-			sleep_ms(duration*1000) ;
-		} else {
+			if (this->dma_chan == NOT_ASSIGNED_DMA) sleep_ms(duration*1000) ;
 			return;
 		};
 		// fill the tone information		
@@ -208,7 +209,9 @@
 		this->tone_v.duration = ( duration * this->tone_v.frequency) ;
 		this->tone_v.loudness = 100 ;
 		//fill the timeseries
+
 		pdm_timeseries_fill() ;
+
 		// start playing
 		if (this->dma_chan == NOT_ASSIGNED_DMA) {
 			playtone_blocking_no_dma() ;
@@ -223,11 +226,13 @@
 	
 	void Tone::stop() {
 //		printf("Stopping Tone %d\n", this->this_handler_instance);
-		if (this->dma_chan != NOT_ASSIGNED_DMA) { tone_dma_handler_exit_now(this->this_handler_instance);}
-		//give three waves of frequency plus the 8 FIFO word buffer + 1 wave of silence (2 words)  spare timing
-		//It is ugly, but I have not (yet) found a better way. 
-		int sleep_calc = ((3 * 1000)/110 + 5 ) ; (give three waves of lowest frequence + 1 silencing time to stop before progressing)
-		sleep_ms(sleep_calc) ;
+		if (this->dma_chan != NOT_ASSIGNED_DMA) { 
+			tone_dma_handler_exit_now(this->this_handler_instance);
+			//give three waves of frequency plus the 8 FIFO word buffer + 1 wave of silence (2 words) timing to allow
+			//for stopping the tone. It is ugly, but I have not (yet) found a better way. 
+			int sleep_calc = ((3 * 1000)/110 + 5 );
+			sleep_ms(sleep_calc) ;
+		};
 	};
 	
 	void Tone::reconfigure_harmonics(uint base,uint h2,uint h3,uint h4,uint h5,uint h6,uint h7) {
@@ -235,13 +240,13 @@
 	};
 	
 	void Tone::play_melody(uint tempo, uint length, uint * pitches, uint * values) {
-		float duration_unit = 60.0 / (float)tempo ; // tempo is beats per minute
+		float duration_unit = 4 * 60.0 / (float)tempo ; // tempo is beats per minute for quarter notes
 		for (int i = 0; i < length ; i++) {
-			tone(pitches[i], 0.75 * duration_unit / values[i]);
-			if (this->dma_channel == NOT_ASSIGNED_DMA) {
-				sleep_ms(0.25 * duration_unit / values[i]);
+			tone(pitches[i], 0.85 * duration_unit / values[i]);
+			if (this->dma_chan == NOT_ASSIGNED_DMA) {
+				sleep_ms(1000* 0.15 * duration_unit / values[i]);
 			} else {
-				sleep_ms(duration_unit / values[i]);
+				sleep_ms(1000 * duration_unit / values[i]);
 			};
 		};
 	};

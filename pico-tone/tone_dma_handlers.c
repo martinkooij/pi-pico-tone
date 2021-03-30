@@ -46,7 +46,7 @@ void tone_dma_handler2() {
 		if (tone_dma_handler_info[i].no_waves == 1) { return; } // nothing to handle, finished with this interrupt
 		tone_dma_handler_info[i].no_waves = tone_dma_handler_info[i].no_waves?(tone_dma_handler_info[i].no_waves - 1):0;  // if 0 keep it zero 
 		if (tone_dma_handler_info[i].no_waves == 1) {
-			printf("I (2) am pushing the 2 words silence now\n");
+//			printf("I (2) am pushing the 2 words silence now\n");
 			dma_channel_set_trans_count(tone_dma_handler_info[i].dma_chan,2,0);
 			dma_channel_set_read_addr(tone_dma_handler_info[i].dma_chan, push_sm_to_zero, true);
 			return;
@@ -61,7 +61,7 @@ void tone_dma_handler3() {
 		if (tone_dma_handler_info[i].no_waves == 1) { return; } // nothing to handle, finished with this interrupt
 		tone_dma_handler_info[i].no_waves = tone_dma_handler_info[i].no_waves?(tone_dma_handler_info[i].no_waves - 1):0;  // if 0 keep it zero 
 		if (tone_dma_handler_info[i].no_waves == 1) {
-			printf("I (3) am pushing the 2 words silence now\n");
+//			printf("I (3) am pushing the 2 words silence now\n");
 			dma_channel_set_trans_count(tone_dma_handler_info[i].dma_chan,2,0);
 			dma_channel_set_read_addr(tone_dma_handler_info[i].dma_chan, push_sm_to_zero, true);
 			return;
@@ -115,5 +115,5 @@ void tone_dma_handler_info_set_no_waves(uint this_handler_instance, uint no_wave
 };
 
 void tone_dma_handler_exit_now(uint this_handler_instance) {
-	tone_dma_handler_info[this_handler_instance].no_waves = 3 ;
-}
+	tone_dma_handler_info[this_handler_instance].no_waves = 2 ;
+};
