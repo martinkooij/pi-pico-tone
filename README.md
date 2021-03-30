@@ -126,7 +126,10 @@ myPlayer1.play_melody(T_LARGHETTO,8,melody,values);
 
 ## Wiring scheme. 
 
+![](img/tone_bb.png)
 
+Basically I used a low pass filer (120OHM, 100nF) to cut off anything above 12kHz. The low pass filter has hi impedance by using an LM385 as a voltage foller. I connected the -V at ground and +V at 5V. The LM385 goes al the way to zero, so that is ok, but loses 1.3 Volt at the + rail, so you will need to add 5V, not 3.3V in case you want any sound at all. Actually any amplification circuit tapping from point 
+![](img/tone_circuit.png)
 
 ## Background
 The system uses PDM as coding. This coding codes an analogue signal by switching bits on and off depending on the difference of the signal to be coded and the current integrated output. 
