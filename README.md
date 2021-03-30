@@ -128,7 +128,7 @@ myPlayer1.play_melody(T_LARGHETTO,8,melody,values);
 
 ![](img/tone_bb.png)
 
-Basically I used a low pass filer (120OHM, 100nF) to cut off anything above 12kHz. The low pass filter has high impedance by using an LM358 as a voltage foller. I connected the -V at ground and +V at 5V. The LM358 goes all the way to ground, so that is ok, but loses 1.3 Volt at the +V, so you will need to add 5V, not 3.3V in case you want any sound at all. Actually any amplification circuit tapping from point A works.  
+Basically I used a low pass filter (120 OHM, 100nF) to cut off anything above 12kHz. The low pass filter has high impedance by using an LM358 as a voltage foller. I connected the -V at ground and +V at 5V. The LM358 goes all the way to ground, so that is ok, but loses 1.3 Volt at the +V, so you will need to add 5V, not 3.3V in case you want any sound at all. Actually any amplification circuit tapping from point A works.  
 ![](img/tone_circuit.png)
 
 ## Background
