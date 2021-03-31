@@ -146,4 +146,4 @@ The choice was made to have *maximum simplicity in use and usage* at the costs o
 
 
 ## Release notes
-1-April-2021: Pre-release. 
+1-April-2021: First Release. 
