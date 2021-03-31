@@ -5,7 +5,7 @@ Sometimes you want the pico to put out some tones. This simple tone library allo
 
 The tone is generated as a sine waves (default) with configurable harmonics. As such it is fundamentally different and a little more "advanced" than the classical PWM tone generators. 
 
-When using dma (non_blocking) a maximum of 4 tone generators can run at the same time on 4 different pins. When the blocking mode is used one can define as many tone generators as the PIO statemachines will allow (8 max, if no other usage), but (of course) they will not be able to play at the same time. 
+When using dma (non_blocking) a maximum of 4 tone generators can run at the same time on 4 different pins of choice. When the blocking mode is used one can define as many tone generators as the PIO statemachines will allow (8 max, if no other usage), but in that case they will not be able to play at the same time. 
 
 Multi-core tone playing is not supported yet, and left for later or never. 
 
@@ -50,12 +50,12 @@ The following methods on the created object are provided:
 	<tbody>
 		<tr>
 			<td><code>init(bool blocking)</code></td>
-			<td>Simple initializer: initializes the tone generator, when "blocking" is FALSE, it wil also set up dma handlers to generate the tone without help of the processor. The system will panic in case the resources in the pi PICO are not available for the Tone generator.  
+			<td>Simple initializer: initializes the tone generator. When "blocking" is FALSE, it wil also set up dma handlers to generate a tone without help of the CPU unit. The system will panic in case the resources in the pi PICO are not available for the Tone generator.  
 			</td>
 		</tr>
 		<tr>
 			<td><code>int init(bool blocking, bool do_panic)</code></td>
-			<td>Extended initializer: This initializes the tone generator, with the first argument determining whther dma is used, the second one, if <code>false</code>, will give a negative return value when resource cannot be claimed and 0 or positive if the resource claims were succesful. 
+			<td>Extended initializer: This initializes the tone generator, with the first argument determining whether dma is used, the second one, if <code>false</code>, will give a negative return value when resource cannot be claimed and 0 or positive if the resource claims were succesful. 
 			</td>
 		</tr>
 		<tr>
@@ -70,7 +70,7 @@ The following methods on the created object are provided:
 		</tr>		
 		<tr>
 			<td><code>void stop()</code> </td>
-			<td> stop the tone currently playing (only useful in case of the non blocking version). 
+			<td> stops the tone currently playing; only useful in case of the non blocking version. It does nothing otherwise. 
 			</td>
 		</tr>
 		<tr>
@@ -110,11 +110,11 @@ int result = myPlayer2.init(TONE_NON_BLOCKING, false);
 When this is defined the following holds (for the upper case defined constants, see "pitches.h"):
 
 - <code> myPlayer1.tone(NOTE_A4,0.5); </code> plays a tone of central A (440Hz) during 0.5 seconds and returns afterwards. 
-- <code> myPlayer2.tone(NOTE_A4, 0.5); </code> starts playing a tone of central A (440Hz) during 0.5 seconds and returns immediately. 
-- <code> myPlayer2.tone(NOTE_FS4); </code> start playing a tone F-sharp (mid-range)
-- <code> myPlayer2.stop() </code> stops playing the current ongoing tone immediately and return. 
-- <code> myPlayer1.reconfigure_harmonics(100,0,0,0,0,0,0,0); </code> Make myPlayer1 play pure sine waves tones from now onwards. 
-- <code> if (result < 0) { panic("something is wrong with myPlayer2"); }</code> negative result means that the tone (myPlayer2) could not be initialized. Success is implied for myPlayer1, otherwise the system does a panic. 
+- <code> myPlayer2.tone(NOTE_A4, 0.5); </code> starts playing a tone of central A (440Hz) of 0.5 seconds duration. It returns immediately to the CPU while playing the tone. 
+- <code> myPlayer2.tone(NOTE_FS4); </code> starts playing the tone F-sharp (mid-range) continuously and returns to the CPU. 
+- <code> myPlayer2.stop() </code> stops playing the current ongoing tone and returns. 
+- <code> myPlayer1.reconfigure_harmonics(100,0,0,0,0,0,0,0); </code> Make myPlayer1 play pure sine waves tones from the call onwards. 
+- <code> if (result == -3) { printf("Out of pio instruction memory in pio1\n"); }</code> negative result means that the tone (myPlayer2) could not be initialized. Success is implied for myPlayer1, otherwise the system does a panic. 
 
 Or to play a simple melody:
 ````
