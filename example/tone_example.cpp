@@ -6,9 +6,8 @@
 
 int main() {
 	
-	uint melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
-	uint values[] = {4,       8,       8,       4,       4,       4, 4,       4      };	
-	
+	uint melody[] = {NOTE_C4,4,  NOTE_G3,8,  NOTE_G3,8,  NOTE_A3,4,  NOTE_G3,4, 0,4,  NOTE_B3,4,  NOTE_C4,4};
+
 	Tone myPlayer(15,50,0,20,0,20,0,10);
 	Tone myPlayer2(14) ;
 	myPlayer.init(TONE_NON_BLOCKING) ;
@@ -16,7 +15,7 @@ int main() {
 	
 	while (true) {
 
-	myPlayer.play_melody(T_PRESTO,8,melody,values);
+	myPlayer.play_melody(T_PRESTO,8,melody);
 	myPlayer2.tone(NOTE_FS4, 2.0);
 	sleep_ms(4000);
 

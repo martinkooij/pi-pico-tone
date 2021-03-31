@@ -79,8 +79,8 @@ The following methods on the created object are provided:
 			</td>
 		</tr>		
 		<tr>
-			<td><code>play_melody(uint t, uint n, uint * pitches, uint * values)</code> </td>
-			<td> plays a melody of length n and tempo t. t in beats per second. "pitches" refers to an array of notes. The length of the array should be n. "values" refers to an array of equal length that indicating the note values, as taken from the common musical notation. So 4 is a quarter note (most common), 8 an eighth note, 2 a half note, etc.  If the pitch is 0 (zero) it denotes a silence, so a pitch of zero with value 4 denotes a silence that is as long as a quarter note. 
+			<td><code>play_melody(uint t, uint n, uint * melody)</code> </td>
+			<td> plays a melody of with n notes and tempo t. t in beats per second. "melody" refers to an array of pitches of notes,each followed by an integer representing the not value according to common musical notation. So 4 is a quarter note, 8 an eighth. Negative values indicate a dotted note (so -4 is a dotted quarter note = quarter not + half duration). The length of the array should be n*2. If the pitch is 0 (zero) it denotes a silence, so a pitch of zero with value 4 denotes a silence that is as long as a quarter note. 
 			</td>
 		</tr>		
 	</tbody>
@@ -118,9 +118,8 @@ When this is defined the following holds (for the upper case defined constants, 
 
 Or to play a simple melody:
 ````
-uint melody[] = {NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4};
-uint values[] = {4,       8,       8,       4,       4,       4, 4,       4      };
-myPlayer1.play_melody(T_LARGHETTO,8,melody,values);
+uint melody[] = {NOTE_C4,4,NOTE_G3,8,NOTE_G3,8,NOTE_A3,4,NOTE_G3,4,0,4,NOTE_B3,4,NOTE_C4,4};
+myPlayer1.play_melody(T_PRESTO,8,melody);
 ````
 
 
