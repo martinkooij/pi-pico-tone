@@ -239,16 +239,33 @@
 		reconstruct_tone(base,h2,h3,h4,h5,h6,h7);
 	};
 	
+	void Tone::play_melody(uint tempo, uint no_notes, int * melody) {
+		float duration_unit = 4 * 60.0 / (float)tempo ; // tempo is beats per minute for quarter notes
+		float tone_duration ;
+		for (int i = 0; i < (no_notes*2) ; i=i+2) {
+			if (melody[i+1] < 0) {
+				tone_duration = melody[i+1]* -1.5 ;
+			} else {
+				tone_duration = melody[i+1];
+			};
+			tone(melody[i], 0.90 * duration_unit / tone_duration);
+			if (this->dma_chan == NOT_ASSIGNED_DMA) {
+				sleep_ms(1000* 0.10 * duration_unit / tone_duration);
+			} else {
+				sleep_ms(1000 * duration_unit / tone_duration);
+			};
+		};
+	};
+
+//for backwards compatibility with pre-release version (not advertised). 
 	void Tone::play_melody(uint tempo, uint length, uint * pitches, uint * values) {
 		float duration_unit = 4 * 60.0 / (float)tempo ; // tempo is beats per minute for quarter notes
 		for (int i = 0; i < length ; i++) {
-			tone(pitches[i], 0.85 * duration_unit / values[i]);
+			tone(pitches[i], 0.90 * duration_unit / values[i]);
 			if (this->dma_chan == NOT_ASSIGNED_DMA) {
-				sleep_ms(1000* 0.15 * duration_unit / values[i]);
+				sleep_ms(1000* 0.10 * duration_unit / values[i]);
 			} else {
 				sleep_ms(1000 * duration_unit / values[i]);
 			};
 		};
 	};
-
-				

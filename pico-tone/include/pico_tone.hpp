@@ -57,4 +57,5 @@ class Tone {
 	void tone(uint frequency);
 	void reconfigure_harmonics(uint base,uint h2,uint h3,uint h4,uint h5,uint h6,uint h7); 
 	void play_melody(uint tempo, uint length, uint * pitches, uint * values);
+	void play_melody(uint tempo, uint length, int * melody);
 };
