@@ -6,8 +6,10 @@
 
 int main() {
 	
+// Thanks to Michal Choma, Slovakya
+	
 int melody[] = {
-	// notes of the moledy followed by the duration.
+	// notes of the melody followed by the duration.
 	// a 4 means a quarter note, 8 an eighteenth , 16 sixteenth, so on
 	// !!negative numbers are used to represent dotted notes,
 	// so -4 means a dotted quarter note, that is, a quarter plus an eighteenth!!
