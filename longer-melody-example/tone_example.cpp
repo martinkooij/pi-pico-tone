@@ -6,7 +6,7 @@
 
 int main() {
 	
-uint melody[] = {
+int melody[] = {
 	// notes of the moledy followed by the duration.
 	// a 4 means a quarter note, 8 an eighteenth , 16 sixteenth, so on
 	// !!negative numbers are used to represent dotted notes,
@@ -84,7 +84,7 @@ uint melody[] = {
 	
 	while (true) {
 
-	myPlayer.play_melody(T_MODERATO,sizeof(melody)/(sizeof(melody[0])*2),melody);
+	myPlayer.play_melody(T_ADAGIO,sizeof(melody)/(sizeof(melody[0])*2),melody);
 
 	sleep_ms(4000);
 

@@ -6,7 +6,7 @@
 
 int main() {
 	
-	uint melody[] = {NOTE_C4,4,  NOTE_G3,8,  NOTE_G3,8,  NOTE_A3,4,  NOTE_G3,4, 0,4,  NOTE_B3,4,  NOTE_C4,4};
+	int melody[] = {NOTE_C4,4,  NOTE_G3,8,  NOTE_G3,8,  NOTE_A3,4,  NOTE_G3,4, 0,4,  NOTE_B3,4,  NOTE_C4,4};
 
 	Tone myPlayer(15,50,0,20,0,20,0,10);
 	Tone myPlayer2(14) ;
