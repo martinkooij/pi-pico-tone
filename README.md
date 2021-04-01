@@ -137,7 +137,7 @@ Basically I used a simple low pass filter (120 OHM, 100nF) to cut off anything a
 ![](img/tone_circuit.png)
 
 mr. Graham Robinson helped me on Facebook with the diagram below that you can connect any 3.3V audio pin to a 3.5mm jack cable and use as line out to any amplifier/speakerbox. I verified it to work!
-![] (img/tone-line-output.png) 
+![](img/tone-line-output.png) 
 
 ## Background
 The system uses PDM as coding. This coding codes an analogue signal by switching bits on and off depending on the difference of the signal to be coded and the current integrated output. 
