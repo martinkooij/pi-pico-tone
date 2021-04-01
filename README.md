@@ -117,12 +117,13 @@ When this is defined the following holds (for the upper case defined constants, 
 - <code> if (result == -3) { printf("Out of pio instruction memory in pio1\n"); }</code> negative result means that the tone (myPlayer2) could not be initialized. Success is implied for myPlayer1, otherwise the system does a panic. 
 
 To play a simple melody:
-``
+````
 Tone myPlayer(15,50,0,20,0,20,0,10); //play on pin 15
 
 myPlayer.init(NON_BLOCKING);
 int melody[] = {NOTE_C4,4,NOTE_G3,8,NOTE_G3,8,NOTE_A3,4,NOTE_G3,4,0,4,NOTE_B3,4,NOTE_C4,4};
 myPlayer.play_melody(T_PRESTO,8,melody);
+
 ````
 
 
@@ -152,4 +153,4 @@ The choice was made to have *maximum simplicity in use and usage* at the costs o
 
 
 ## Release notes
-1-April-2021: Pre-release. 
+1-April-2021: First Release. 

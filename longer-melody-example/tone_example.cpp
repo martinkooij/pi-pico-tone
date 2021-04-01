@@ -6,7 +6,7 @@
 
 int main() {
 	
-// Thanks to Michal Choma, Slovakya
+// Inspired thanks to Michal Choma, Slovakya; and Jana Karel Švaříčková, Slovakya (arduino version). 
 	
 int melody[] = {
 	// notes of the melody followed by the duration.
