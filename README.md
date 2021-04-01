@@ -118,6 +118,8 @@ When this is defined the following holds (for the upper case defined constants, 
 
 To play a simple melody:
 ````
+#include "pico_tone.hpp"
+
 Tone myPlayer(15,50,0,20,0,20,0,10); //play on pin 15
 
 myPlayer.init(NON_BLOCKING);
