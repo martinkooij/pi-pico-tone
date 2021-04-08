@@ -79,7 +79,7 @@ The following methods on the created object are provided:
 			</td>
 		</tr>		
 		<tr>
-			<td><code>play_melody(uint t, uint n, uint * melody)</code> </td>
+			<td><code>play_melody(uint t, uint n, int * melody)</code> </td>
 			<td> plays a melody of with n notes and tempo t. t in beats per second. "melody" refers to an array of pitches of notes,each followed by an integer representing the not value according to common musical notation. So 4 is a quarter note, 8 an eighth. Negative values indicate a dotted note (so -4 is a dotted quarter note = quarter not + half duration). The length of the array should be n*2. If the pitch is 0 (zero) it denotes a silence, so a pitch of zero with value 4 denotes a silence that is as long as a quarter note. 
 			</td>
 		</tr>		
@@ -116,10 +116,15 @@ When this is defined the following holds (for the upper case defined constants, 
 - <code> myPlayer1.reconfigure_harmonics(100,0,0,0,0,0,0,0); </code> Make myPlayer1 play pure sine waves tones from the call onwards. 
 - <code> if (result == -3) { printf("Out of pio instruction memory in pio1\n"); }</code> negative result means that the tone (myPlayer2) could not be initialized. Success is implied for myPlayer1, otherwise the system does a panic. 
 
-Or to play a simple melody:
+To play a simple melody:
 ````
-uint melody[] = {NOTE_C4,4,NOTE_G3,8,NOTE_G3,8,NOTE_A3,4,NOTE_G3,4,0,4,NOTE_B3,4,NOTE_C4,4};
-myPlayer1.play_melody(T_PRESTO,8,melody);
+#include "pico_tone.hpp"
+
+Tone myPlayer(15,50,0,20,0,20,0,10); //play on pin 15
+
+myPlayer.init(NON_BLOCKING);
+int melody[] = {NOTE_C4,4,NOTE_G3,8,NOTE_G3,8,NOTE_A3,4,NOTE_G3,4,0,4,NOTE_B3,4,NOTE_C4,4};
+myPlayer.play_melody(T_PRESTO,8,melody);
 ````
 
 
@@ -129,6 +134,10 @@ myPlayer1.play_melody(T_PRESTO,8,melody);
 
 Basically I used a simple low pass filter (120 OHM, 100nF) to cut off anything above 12kHz. The low pass filter has high impedance by including an LM358 configured as a voltage follower. I connected the -V at ground and +V at 5V. The LM358 goes all the way to ground, so that is ok, but loses 1.3 Volt at the +V, so you will need to power it with at least 5V, not 3.3V in case you want any sound at all. Actually any amplification circuit tapping from point A works.  
 ![](img/tone_circuit.png)
+
+mr. Graham Robinson helped me on Facebook with the diagram below that you can connect any 3.3V audio pin to a 3.5mm jack cable and use as line out to any amplifier/speakerbox. I verified it to work!
+![](img/tone-line-output.png) 
+
 
 ## Background
 The system uses PDM as coding. This coding codes an analogue signal by switching bits on and off depending on the difference of the signal to be coded and the current integrated output. 
@@ -146,4 +155,4 @@ The choice was made to have *maximum simplicity in use and usage* at the costs o
 
 
 ## Release notes
-1-April-2021: Pre-release. 
+1-April-2021: First Release. 
