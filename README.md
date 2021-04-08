@@ -125,7 +125,6 @@ Tone myPlayer(15,50,0,20,0,20,0,10); //play on pin 15
 myPlayer.init(NON_BLOCKING);
 int melody[] = {NOTE_C4,4,NOTE_G3,8,NOTE_G3,8,NOTE_A3,4,NOTE_G3,4,0,4,NOTE_B3,4,NOTE_C4,4};
 myPlayer.play_melody(T_PRESTO,8,melody);
-
 ````
 
 
@@ -138,6 +137,7 @@ Basically I used a simple low pass filter (120 OHM, 100nF) to cut off anything a
 
 mr. Graham Robinson helped me on Facebook with the diagram below that you can connect any 3.3V audio pin to a 3.5mm jack cable and use as line out to any amplifier/speakerbox. I verified it to work!
 ![](img/tone-line-output.png) 
+
 
 ## Background
 The system uses PDM as coding. This coding codes an analogue signal by switching bits on and off depending on the difference of the signal to be coded and the current integrated output. 
