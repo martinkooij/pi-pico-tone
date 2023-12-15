@@ -7,7 +7,7 @@ The tone is generated as a sine waves (default) with configurable harmonics. As 
 
 When using dma (non_blocking) a maximum of 4 tone generators can run at the same time on 4 different pins of choice. When the blocking mode is used one can define as many tone generators as the PIO statemachines will allow (8 max, if no other usage), but in that case they will not be able to play at the same time. 
 
-Multi-core tone playing is not supported yet, and left for later or never. 
+Multi-core tone playing is not supported yet, and left for later or never.
 
 ## getting the library and compiling
 
